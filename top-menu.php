@@ -8,7 +8,7 @@
  */
 ?>
 
-<div id="sidebar-menu" class="resize">    
+<div id="top-menu">    
 		 <?php $titlepadre = get_the_title();
          if(!$post->post_parent){
           // will display the subpages of this top level page

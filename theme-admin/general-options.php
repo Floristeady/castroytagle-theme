@@ -59,7 +59,6 @@
 		function register_and_build_fields() {
 			register_setting('plugin_options', 'plugin_options', 'validate_setting');
 			add_settings_section('main_section', '', 'section_cb', 'boilerplate-admin');
-			add_settings_field('google_chrome', 'IE-edge / Google Chrome?:', 'google_chrome_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('google_verification', 'Google Verification?:', 'google_verification_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('meta_tags', 'Meta Keywords tags?:', 'meta_tags_setting', 'boilerplate-admin', 'main_section');
 			add_settings_field('viewport', '<em><abbr title="iPhone, iTouch, iPad...">iThings</abbr></em> use full zoom?:', 'viewport_setting', 'boilerplate-admin', 'main_section');
@@ -113,19 +112,6 @@
 	if ( ! function_exists( 'section_cb' ) ):
 		function section_cb() {}
 	endif; // section_cb
-
-	//	callback fn for google_chrome
-	if ( ! function_exists( 'google_chrome_setting' ) ):
-		function google_chrome_setting() {
-			$options = get_option('plugin_options');
-			$checked = (isset($options['google_chrome']) && $options['google_chrome']) ? 'checked="checked" ' : '';
-			echo '<input class="check-field" type="checkbox" name="plugin_options[google_chrome]" value="true" ' .$checked. '/>';
-			echo _e( '<p>Force the most-recent IE rendering engine or users with <a href="http://www.chromium.org/developers/how-tos/chrome-frame-getting-started">Google Chrome Frame</a> installed to see your site using Google Frame.</p>', 'castroytagle' );
-
-			echo _e( '<p>Selecting this option will add the following code to the <code>&lt;head&gt;</code> of your pages:</p>', 'castroytagle' );
-			echo '<code>&lt;meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"&gt;</code>';
-		}
-	endif; // google_chrome_setting
 
 	//	callback fn for google_verification
 	if ( ! function_exists( 'google_verification_setting' ) ):
@@ -295,12 +281,6 @@
 
 /*	4)	Create functions to add above elements to pages */
 
-	//	$options['google_chrome']
-	if ( ! function_exists( 'add_google_chrome' ) ):
-		function add_google_chrome() {
-			echo '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">'.PHP_EOL;
-		}
-	endif; // add_google_chrome
 
 	//	$options['google_verification']
 	if ( ! function_exists( 'add_google_verification' ) ):

@@ -520,8 +520,8 @@ add_action('init', 'project_register');
 function project_register () {
  
 $labels = array(
-'name' => _x('Proyectos', 'post type general name'),
-'singular_name' => _x('Proyecto inicio', 'post type singular name'),
+'name' => _x('Proyectos en Venta', 'post type general name'),
+'singular_name' => _x('Proyecto', 'post type singular name'),
 'add_new' => _x('Añadir nuevo proyecto', 'proyecto item'),
 'add_new_item' => __('Añadir nuevo proyecto'),
 'edit_item' => __('Editar proyecto'),
@@ -540,20 +540,75 @@ $args = array(
 'publicly_queryable' => true,
 'show_ui' => true,
 'query_var' => true,
-'rewrite' => array('slug' => 'image'),
-'capability_type' => 'post',
+'rewrite' => array('slug' => 'ciudades'),
+'capability_type' => 'page',
 'hierarchical' => false,
 'menu_position' => null,
-'supports' => array('title','editor','thumbnail','excerpt')
+'supports' => array('title','editor','thumbnail','excerpt', 'page-attributes'),
+'menu_icon'            => get_template_directory_uri() . '/images/elements/house.png'
 );
  
-     register_post_type( 'project', $args );
+     register_post_type( 'projectsale', $args );
      flush_rewrite_rules();
 }
 
 /**
-********************* Custom Meta Box Project*****************
+********************* Custom Taxonomy Project*****************
 */
+add_action( 'init', 'create_book_tax', 0 );
+
+function create_book_tax() {
+
+	$labels = array(
+		'name'                       => _x( 'Tipos', 'Taxonomy General Name', 'castroytagle' ),
+		'singular_name'              => _x( 'Tipo', 'Taxonomy Singular Name', 'castroytagle' ),
+		'menu_name'                  => __( 'Tipos de Propiedad', 'castroytagle' ),
+		'all_items'                  => __( 'Todos los tipos', 'castroytagle' ),
+	);
+
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => true,
+	);
+
+	register_taxonomy( 'types', 'projectsale', $args );
+
+}
+
+add_action( 'init', 'create_book_city', 0 );
+
+function create_book_city() {
+
+	$labels = array(
+		'name'                       => _x( 'Ciudades', 'Taxonomy General Name', 'castroytagle' ),
+		'singular_name'              => _x( 'Ciudad', 'Taxonomy Singular Name', 'castroytagle' ),
+		'menu_name'                  => __( 'Ciudades', 'castroytagle' ),
+		'all_items'                  => __( 'Todas las ciudades', 'castroytagle' ),
+	);
+
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => true,
+	);
+
+	register_taxonomy( 'cities', 'projectsale', $args );
+
+}
+
+
+/**
+********************* Custom Meta Box Project*****************
+
 // Add the Meta Box
 function add_custom_meta_box() {
     add_meta_box(
@@ -654,57 +709,7 @@ function save_custom_meta($post_id) {
 		update_post_meta($post_id, $field['id'], $new);
 	} // end foreach
 }
-
-
-/**
-********************* Custom Taxonomy Project*****************
 */
-add_action( 'init', 'create_book_tax', 0 );
-
-function create_book_tax() {
-
-	$labels = array(
-		'name'                       => _x( 'Tipos', 'Taxonomy General Name', 'metorweb' ),
-		'singular_name'              => _x( 'Tipo', 'Taxonomy Singular Name', 'metorweb' ),
-		'menu_name'                  => __( 'Tipos', 'metorweb' ),
-		'all_items'                  => __( 'Todos los tipos', 'metorweb' ),
-	);
-
-	$args = array(
-		'labels'                     => $labels,
-		'hierarchical'               => true,
-		'public'                     => true,
-		'show_ui'                    => true,
-		'show_admin_column'          => true,
-		'show_in_nav_menus'          => true,
-		'show_tagcloud'              => true,
-	);
-
-	register_taxonomy( 'types', 'project', $args );
-
-}
-
-/**
- *  Plugin post to post
- */
-
-function my_connection_types() {
-	p2p_register_connection_type( array(
-		'name' => 'posts_to_pages',
-		'from' => 'page',
-		'to' => 'project',
-		'cardinality' => 'one-to-many',
-		'reciprocal' => false,
-		
-		'fields' => array(
-		'count' => array(
-			'title' => 'Comentarios',
-			'type' => 'text',
-		))
-		
-	) );
-}
-add_action( 'p2p_init', 'my_connection_types' );
 
 
 ?>

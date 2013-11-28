@@ -8,7 +8,7 @@
  */
 
 get_header(); ?>
-<div id="content-full">
+<div id="content">
 				<h1><?php
 					printf( __( 'Category Archives: %s', 'castroytagle' ), '' . single_cat_title( '', false ) . '' );
 				?></h1>

@@ -14,7 +14,7 @@
 
 get_header(); ?>
 
-<div id="content-full">
+<div id="content">
 
 <?php
 	/* Queue the first post, that way we know
