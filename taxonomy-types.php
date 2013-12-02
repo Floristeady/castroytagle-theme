@@ -30,8 +30,12 @@ get_header(); ?>
 	<ul id="submenu">
 		<?php
 		foreach ($tax_terms as $tax_term) {
-		echo '<li>' . '<a href="' . esc_attr(get_term_link($tax_term, $taxonomy)) . '" title="' . sprintf( __( "View all posts in %s" ), $tax_term->name ) . '" ' . '>' . $tax_term->name.'</a></li>';
-		} ?>
+		//echo '<li>' . '<a href="' . esc_attr(get_term_link($tax_term, $taxonomy)) . '" title="' . sprintf( __( "View all posts in %s" ), $tax_term->name ) . '" ' . '>' . $tax_term->name.'</a></li>';
+		echo '<li>' . '<a href="' . get_bloginfo('url') . '/?types='.$title.'&cities='.$tax_term->name.'" title="' . sprintf( __( "View all posts in %s" ), $tax_term->name ) . '" ' . '>' . $tax_term->name.'</a></li>';
+		} 
+		
+		echo '<li>' . '<a href="' . get_bloginfo('url') . '/?types='.$title.'" title="' . sprintf( __( "View all posts in %s" ), $title ) . '" ' . '>Ver todo</a></li>';
+		?>
 	</ul>
 	
 	<ul id="list-projects">
