@@ -24,6 +24,13 @@ get_header(); ?>
 	<h1 class="page-title"><?php echo $title ?></h1>
 	
 	<?php
+	$currentCitie = "";
+	$currentTodos = "";
+	if (isset($_GET["cities"])) {
+		$currentCitie = $_GET["cities"];
+	} else {
+		$currentTodos = "current";
+	}
 	$taxonomy = 'cities';
 	$tax_terms = get_terms($taxonomy);
 	?>
@@ -31,10 +38,14 @@ get_header(); ?>
 		<?php
 		foreach ($tax_terms as $tax_term) {
 		//echo '<li>' . '<a href="' . esc_attr(get_term_link($tax_term, $taxonomy)) . '" title="' . sprintf( __( "View all posts in %s" ), $tax_term->name ) . '" ' . '>' . $tax_term->name.'</a></li>';
-		echo '<li>' . '<a href="' . get_bloginfo('url') . '/?types='.$title.'&cities='.$tax_term->name.'" title="' . sprintf( __( "View all posts in %s" ), $tax_term->name ) . '" ' . '>' . $tax_term->name.'</a></li>';
+		$class = "";
+		if ($currentCitie == $tax_term->name) {
+			$class = "current";
+		}
+		echo '<li>' . '<a href="' . get_bloginfo('url') . '/?types='.$title.'&cities='.$tax_term->name.'" title="' . sprintf( __( "View all posts in %s" ), $tax_term->name ) . '" ' . 'class="'.$class.'">' . $tax_term->name.'</a></li>';
 		} 
 		
-		echo '<li>' . '<a href="' . get_bloginfo('url') . '/?types='.$title.'" title="' . sprintf( __( "View all posts in %s" ), $title ) . '" ' . '>Ver todo</a></li>';
+		echo '<li>' . '<a href="' . get_bloginfo('url') . '/?types='.$title.'" title="' . sprintf( __( "View all posts in %s" ), $title ) . '" ' . ' class="'.$currentTodos.'">Ver todo</a></li>';
 		?>
 	</ul>
 	
