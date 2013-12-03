@@ -23,17 +23,8 @@ get_header(); ?>
 	
 	<h1 class="page-title"><?php echo $title ?></h1>
 	
-	<?php
-	$taxonomy = 'cities';
-	$tax_terms = get_terms($taxonomy);
-	?>
-	<ul id="submenu">
-		<?php
-		foreach ($tax_terms as $tax_term) {
-		echo '<li>' . '<a href="' . esc_attr(get_term_link($tax_term, $taxonomy)) . '" title="' . sprintf( __( "View all posts in %s" ), $tax_term->name ) . '" ' . '>' . $tax_term->name.'</a></li>';
-		} ?>
-	</ul>
-	
+	<?php include('include/submenu-filter.php'); ?>	
+
 	<ul id="list-projects">
 	<?php if ( ! have_posts() ) : ?>
 		<li id="post-0" class="post error404 not-found ">
@@ -64,6 +55,10 @@ get_header(); ?>
 				<span class="logo-project">
 					<img src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php the_field('logotipo_del_proyecto'); ?>&w=180&h=80" alt="<?php _e('Logotipo proyecto', 'castroytagle');?>" />
 				</span>
+				<?php else :  ?> 				
+				<span class="logo-project">
+					<img src="<?php bloginfo('template_url') ?>/images/elements/default-logo.jpg"/>
+				</span>
 				<?php endif;?>
 				
 				<?php 
@@ -74,12 +69,18 @@ get_header(); ?>
 					if (!empty($thumbnailsrc)):
 				?>
 				<span class="img">
+					<span></span>
 					<img src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php print $thumbnailsrc; ?>&w=246&h=186"/>
-				</span>			
+				</span>	
+				<?php else :  ?> 				
+				<span class="img">
+					<span></span>
+					<img src="<?php bloginfo('template_url') ?>/images/elements/default-project.jpg"/>
+				</span>		
 				<?php endif; //end ?>
 				
 				<?php if( get_field('modelo_del_proyecto') ): ?>
-					<span class="model" class="<?php /*tax*/ $posttags = get_the_terms($post->ID, 'types',''); if ($posttags) { foreach($posttags as $tag) { echo $tag->slug . ' ';} } ?>"><?php the_field('modelo_del_proyecto'); ?></span>
+					<span class="model <?php /*tax*/ $posttags = get_the_terms($post->ID, 'types',''); if ($posttags) { foreach($posttags as $tag) { echo $tag->slug . ' ';} } ?>"><?php the_field('modelo_del_proyecto'); ?></span>
 				<?php endif;?>
 				
 				<?php if( get_field('caracteristicas_del_proyecto') ): ?>

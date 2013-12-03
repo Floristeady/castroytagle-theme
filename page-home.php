@@ -25,17 +25,17 @@ get_header(); ?>
 						
 						<?php foreach($rows as $row) { ?>
 		                
-					 		<li> <img style="display:none;" class="this" title="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php echo $row['imagen_inicio'] ?>&w=1300&h=700" src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php echo $row['imagen_inicio'] ?>&w=1300&h=700" /> </li>
+					 		<li> <img style="display:none;" class="this" src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php echo $row['imagen_inicio'] ?>&w=1300&h=700" /> </li>
 		
 						<?php  }  
 							
 						}  else  { ?>
-							<li> <img style="display:none;" class="this" title="<?php bloginfo('template_url') ?>/images/elements/imagen-back.jpg"/>  </li>
+							<li> <img style="display:none;" class="this" src="<?php bloginfo('template_url') ?>/images/elements/imagen-back.jpg"/></li>
 											
 						<?php  echo '</ul>'; } endwhile; ?>
 
 				<?php  } else { ?>
-				<img style="display:none;" class="this" title="<?php bloginfo('template_url') ?>/images/elements/imagen-back.jpg"/>  	
+				<img style="display:none;" class="this" src="<?php bloginfo('template_url') ?>/images/elements/imagen-back.jpg"/>  	
 				
 				<?php } ?>	
 				

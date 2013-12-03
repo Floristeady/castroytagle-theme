@@ -116,10 +116,10 @@ function castroytagle_setup() {
 		add_custom_image_header( $args );
 		
 	$defaults = array(
-	'default-image'          => get_template_directory_uri() . '/images/headers/header_01.jpg',
+	'default-image'          => get_template_directory_uri() . '/images/back/back.jpg',
 	'random-default'         => false,
-	'width'                  => 970,
-	'height'                 => 220,
+	'width'                  => 1300,
+	'height'                 => 800,
 	'flex-height'            => false,
 	'flex-width'             => false,
 	'default-text-color'     => '',
@@ -253,7 +253,7 @@ add_filter( 'excerpt_length', 'castroytagle_excerpt_length' );
  * @return string "Continue Reading" link
  */
 function castroytagle_continue_reading_link() {
-	return ' <a href="'. get_permalink() . '">' . __( 'Continue reading <span class=\"meta-nav\">&rarr;</span>', 'castroytagle' ) . '</a>';
+	return;
 }
 
 /**
@@ -371,17 +371,6 @@ function castroytagle_widgets_init() {
 		'after_title' => '</h4>',
 	) );
 
-	// Area 2, located below the Primary Widget Area in the sidebar. Empty by default.
-	register_sidebar( array(
-		'name' => __( 'Showcase Sidebar', 'castroytagle' ),
-		'id' => 'secondary-widget-area',
-		'description' => __( 'The sidebar for the optional Showcase Template', 'castroytagle' ),
-		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-		'after_widget' => '</li>',
-		'before_title' => '<h4 class="widget-title">',
-		'after_title' => '</h4>',
-	) );
-
 	// Area 3, located in the footer. Empty by default.
 	register_sidebar( array(
 		'name' => __( 'Footer Area One', 'castroytagle' ),
@@ -393,16 +382,6 @@ function castroytagle_widgets_init() {
 		'after_title' => '</h4>',
 	) );
 
-	// Area 4, located in the footer. Empty by default.
-	register_sidebar( array(
-		'name' => __( 'Footer Area Two', 'castroytagle' ),
-		'id' => 'second-footer-widget-area',
-		'description' => __( 'An optional widget area for your site footer', 'castroytagle' ),
-		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-		'after_widget' => '</li>',
-		'before_title' => '<h4 class="widget-title">',
-		'after_title' => '</h4>',
-	) );
 
 }
 /** Register sidebars by running castroytagle_widgets_init() on the widgets_init hook. */
@@ -553,14 +532,14 @@ $args = array(
 }
 
 /**
-********************* Custom Taxonomy Project*****************
+********************* Custom Taxonomy Project Sale*****************
 */
 add_action( 'init', 'create_book_tax', 0 );
 
 function create_book_tax() {
 
 	$labels = array(
-		'name'                       => _x( 'Tipos', 'Taxonomy General Name', 'castroytagle' ),
+		'name'                       => _x( 'Tipos en Venta', 'Taxonomy General Name', 'castroytagle' ),
 		'singular_name'              => _x( 'Tipo', 'Taxonomy Singular Name', 'castroytagle' ),
 		'menu_name'                  => __( 'Tipos de Propiedad', 'castroytagle' ),
 		'all_items'                  => __( 'Todos los tipos', 'castroytagle' ),
@@ -605,111 +584,77 @@ function create_book_city() {
 
 }
 
+/**
+********************* Post Custom Project Ready *****************
+*/
+ 
+add_action('init', 'project_register_two');
+ 
+function project_register_two () {
+ 
+$labels = array(
+'name' => _x('Proyectos Realizados', 'post type general name'),
+'singular_name' => _x('Proyecto', 'post type singular name'),
+'add_new' => _x('Añadir nuevo proyecto', 'proyecto item'),
+'add_new_item' => __('Añadir nuevo proyecto'),
+'edit_item' => __('Editar proyecto'),
+'new_item' => __('Nueva proyecto'),
+'view_item' => __('Ver proyecto'),
+'search_items' => __('Buscar proyecto'),
+'not_found' => __('No se ha encontrado nada'),
+'not_found_in_trash' => __('No se ha encontrado nada en la papelera'),
+'parent_item_colon' => ''
+);
+ 
+$args = array(
+'labels' => $labels,
+'public' => true,
+'has_archive' => true,
+'publicly_queryable' => true,
+'show_ui' => true,
+'query_var' => true,
+'rewrite' => array('slug' => 'ciudades'),
+'capability_type' => 'page',
+'hierarchical' => false,
+'menu_position' => null,
+'supports' => array('title','editor','thumbnail','excerpt', 'page-attributes'),
+'menu_icon'            => get_template_directory_uri() . '/images/elements/house.png'
+);
+ 
+     register_post_type( 'projectready', $args );
+     flush_rewrite_rules();
+}
 
 /**
-********************* Custom Meta Box Project*****************
-
-// Add the Meta Box
-function add_custom_meta_box() {
-    add_meta_box(
-		'custom_meta_box', // $id
-		'Información del proyecto', // $title
-		'show_custom_meta_box', // $callback
-		'project', // $page
-		'normal', // $context
-		'default'); // $priority
-}
-
-add_action('add_meta_boxes', 'add_custom_meta_box');
-add_action('save_post', 'save_custom_meta');  
-
-// Field Array
-$prefix = 'custom_';
-$custom_meta_fields = array(
-	array(
-		'label'=> 'Cliente',
-		'desc'	=> 'Escribir el nombre del cliente.',
-		'id'	=> $prefix.'client',
-		'type'	=> 'text'
-	),
-	array(
-		'label'=> 'Detalles Técnicos',
-		'desc'	=> 'Escribir detalles técnicos.',
-		'id'	=> $prefix.'details',
-		'type'	=> 'textarea'
-	)
-
-);
-
-// The Callback
-function show_custom_meta_box() {
-	global $custom_meta_fields, $post;
-	// Use nonce for verification
-	echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-		// Begin the field table and loop
-		echo '<table class="form-table">';
-		foreach ($custom_meta_fields as $field) {
-			// get value of this field if it exists for this post
-			$meta = get_post_meta($post->ID, $field['id'], true);
-			// begin a table row with
-			echo '<tr>
-					<th><label style="font-size:13px;" for="'.$field['id'].'">'.$field['label'].'</label></th>
-					<td>';
-					switch($field['type']) {
-					
-					// text
-					case 'text':
-						echo '<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.$meta.'" size="30" />
-							<br /><span class="description">'.$field['desc'].'</span>';
-					break;						
-					
-					// textarea
-					case 'textarea':
-						echo '<textarea name="'.$field['id'].'" id="'.$field['id'].'" cols="60" rows="4">'.$meta.'</textarea>
-							<br /><span class="description">'.$field['desc'].'</span>';
-					break;
-					
-					// select
-					case 'select':
-					echo '<select name="'.$field['id'].'" id="'.$field['id'].'">';
-					foreach ($field['options'] as $option) {
-						echo '<option', $meta == $option['value'] ? ' selected=""' : '', ' value="'.$option['value'].'">'.			$option['label'].'</option>';
-					}
-					echo '</select><br /><span class="description">'.$field['desc'].'</span>';
-					break;
-
-					
-					} //end switch
-			echo '</td></tr>';
-		} // end foreach
-		echo '</table>'; // end table	
-}
-
-
-// Save the Data
-function save_custom_meta($post_id) {
-    global $custom_meta_fields;
-	// verify nonce
-	if (!isset($_POST['custom_meta_box_nonce']) || !wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))
-		return $post_id;
-	// check autosave
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-		return $post_id;
-	// check permissions
-	if ('post' == $_POST['post_type']) {
-		if (!current_user_can('edit_page', $post_id)){
-			return $post_id;}
-		} elseif (!current_user_can('edit_post', $post_id)) {
-			return $post_id;
-	}
-	// loop through fields and save the data
-	foreach ($custom_meta_fields as $field) {
-		$old = get_post_meta($post_id, $field['id'], true);
-		$new = $_POST[$field['id']];
-		update_post_meta($post_id, $field['id'], $new);
-	} // end foreach
-}
+********************* Custom Taxonomy Project Ready*****************
 */
+add_action( 'init', 'create_book_tax_two', 0 );
 
+function create_book_tax_two() {
+
+	$labels = array(
+		'name'                       => _x( 'Tipos Realizados', 'Taxonomy General Name', 'castroytagle' ),
+		'singular_name'              => _x( 'Tipo', 'Taxonomy Singular Name', 'castroytagle' ),
+		'menu_name'                  => __( 'Tipos de Propiedad', 'castroytagle' ),
+		'all_items'                  => __( 'Todos los tipos', 'castroytagle' ),
+	);
+
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => true,
+	);
+
+	register_taxonomy( 'types_two', 'projectready', $args );
+
+}
+
+/**
+********************* Custom Taxonomy Project Ready*****************
+*/
 
 ?>

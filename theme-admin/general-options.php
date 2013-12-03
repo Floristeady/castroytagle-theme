@@ -220,6 +220,7 @@
 		}
 	endif; // jquery_js_setting
 
+
 	//	callback fn for plugins_js
 	if ( ! function_exists( 'plugins_js_setting' ) ):
 		function plugins_js_setting() {
@@ -446,6 +447,7 @@
 				$hook = (isset($options['jquery_head']) && $options['jquery_head']) ? 'wp_print_styles' : 'wp_footer';
 				add_action($hook, 'add_jquery_script');
 			}
+			
 			// for jQuery plug-ins, make sure jQuery was also set
 			if (isset($options['jquery_js']) && $options['jquery_js'] && isset($options['plugins_js']) && $options['plugins_js']) {
 				// check if should be loaded in <head> or at end of <body>

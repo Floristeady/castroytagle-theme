@@ -27,10 +27,12 @@
 			
 	    <meta name="description" content="<?php echo '' . get_bloginfo ( 'description' );  ?>">
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" href="<?php bloginfo('template_url') ?>/css/fontello.css">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="<?php bloginfo('stylesheet_directory'); ?>/css/normalize.css" />
 	    <link rel="stylesheet" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 		<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 		
 <?php
 		/* We add some JavaScript to pages with the comment form

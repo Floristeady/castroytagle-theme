@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: P&aacute;gina con columna derecha
+ * Template Name: P&aacute;gina General
  * @package WordPress
  * @subpackage castroytagle
  * @since castroytagle 1.0
@@ -8,32 +8,28 @@
 
 get_header(); ?>
 
+<?php include('include/breadcrumbs.php'); ?>
+
 <div id="content">
-
-<?php include('breadcrumbs.php'); ?>
-
 
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<?php if ( is_front_page() ) { ?>
-			<h1 class="entry-title"><?php the_title(); ?></h1>
-		<?php } else { ?>	
-			<h1 class="entry-title"><?php the_title(); ?></h1>
-		<?php } ?>
+			
+			<?php include('include/submenu-pages.php'); ?>	
+					
 			<div class="entry-content">
-				<!-- extracto -->
+
             	<h2 class="excerpt"><?php $pbasExtracto = strip_tags(get_the_excerpt()); ?>
-                <?php print substr($pbasExtracto, 0, strpos($pbasExtracto, "Leer m&aacute;s")); ?><span></span></h2>
-                <!-- /extracto -->
+                <?php print $pbasExtracto ?></h2>
                 
 				<?php the_content(); ?>
 				
 				<?php edit_post_link( __( 'Editar', 'castroytagle' ), '', '' ); ?>
-			</div><!-- .entry-content -->
-		</article><!-- #post-## -->
+			</div>
+		</article>
 
 <?php endwhile; ?>
 
-</div><!--#content-->
+</div>
 
 <?php get_footer(); ?>

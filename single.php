@@ -9,9 +9,9 @@
 
 get_header(); ?>
 
-<div id="content">
+<?php include('include/breadcrumbs.php'); ?>
 
-<?php include('breadcrumbs.php'); ?>
+<div id="content">
 
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 
