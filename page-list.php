@@ -18,9 +18,11 @@ get_header(); ?>
 			<?php include('include/submenu-pages.php'); ?>	
 					
 			<div class="entry-content">
-
+				
+				<?php  if (has_excerpt()) : ?>
             	<h2 class="excerpt"><?php $pbasExtracto = strip_tags(get_the_excerpt()); ?>
                 <?php print $pbasExtracto ?></h2>
+                <?php endif ?>
                 
 				<?php the_content(); ?>
 				

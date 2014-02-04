@@ -30,9 +30,17 @@ get_header(); ?>
 			<div class="project-content">
 							
 				<div id="section-1" class=" section">	
+					
 					<div class="entry-content">
-					<h2 class="excerpt"><?php $pbasExtracto = strip_tags(get_the_excerpt()); ?>
-		                <?php print $pbasExtracto ?></h2>
+					<?php if( get_field('logotipo_del_proyecto') ): ?>
+					<span class="logo-project">
+						<img src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php the_field('logotipo_del_proyecto'); ?>&h=90" alt="<?php _e('Logotipo proyecto', 'castroytagle');?>" />
+					</span>
+					<?php endif;?>
+					
+					<?php  if (has_excerpt()) : ?>
+					<h2 class="excerpt"><?php the_excerpt(); ?></h2>
+		            <?php endif ?>
 					
 					<?php the_content(); ?>
 					
@@ -62,7 +70,9 @@ get_header(); ?>
 				
 				<?php if( get_field('galeria_entorno') || get_field('texto_entorno')): ?>
 				<div id="section-2" class="section">	
-						
+					
+					<h3 class="for-mobile"><?php _e('Entorno', 'castroytagle') ?><i class="icon-angle-up"></i></h3>
+					
 					<?php  $rows = get_field('galeria_entorno');  ?>							
 					<?php if($rows) { ?>
 						<div id="entorno-gallery" class="flexslider">
@@ -86,22 +96,17 @@ get_header(); ?>
 				</div>
 				<?php endif; //#section2 Entorno?>	
 				
-				<?php if( get_field('listado_terminaciones') || get_field('galeria_terminaciones')): ?>
+				<?php if( get_field('texto_terminaciones') || get_field('galeria_terminaciones')): ?>
 				<div id="section-3" class="section">
-
-					<?php  $rows = get_field('listado_terminaciones');  ?>
-						
-					<?php if($rows) { ?>
+			
 					
-					<?php echo '<ul class="list">';
-					 
-						foreach($rows as $row) { ?>
-		
-				 		<li> <?php echo $row['texto_listado_terminaciones'] ?></li>
-		
-						<?php } echo '</ul>';  
-						
-					} ?>
+					<h3 class="for-mobile"><?php _e('Terminaciones', 'castroytagle') ?><i class="icon-angle-up"></i></h3>
+					
+					<?php if( get_field('texto_terminaciones') ): ?>
+						<div class="text-terminaciones">
+							<?php the_field('texto_terminaciones'); ?>
+						</div>
+					<?php endif;?>
 
 					<?php  $rows = get_field('galeria_terminaciones');  ?>
 						
@@ -123,6 +128,8 @@ get_header(); ?>
 				
 				<?php if( get_field('listado_emplazamiento') || get_field('galeria_emplazamiento')): ?>
 				<div id="section-4" class="section">
+				
+					<h3 class="for-mobile"><?php _e('Emplazamiento', 'castroytagle') ?><i class="icon-angle-up"></i></h3>
 				
 					<?php  $rows = get_field('listado_emplazamiento');  ?>
 						
@@ -147,7 +154,7 @@ get_header(); ?>
 					 
 						foreach($rows as $row) { ?>
 						
-				 		<li><a href="<?php echo $row['imagen_emplazamiento'] ?>" class="fancybox" rel="group">  <img src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php echo $row['imagen_emplazamiento'] ?>&w=160&h=120"/></a> </li>
+				 		<li><a href="<?php echo $row['imagen_emplazamiento'] ?>" class="fancybox" rel="grouptwo">  <img src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php echo $row['imagen_emplazamiento'] ?>&w=160&h=120"/></a> </li>
 		
 						<?php } echo '</ul>';  ?>
 					</div>	
@@ -158,7 +165,9 @@ get_header(); ?>
 				
 				
 				 <?php if( get_field('informacion_plantas')): ?>
-				<div id="section-5" class="section-5 section">
+				<div id="section-5" class="section">
+				
+					<h3 class="for-mobile"><?php _e('Plantas', 'castroytagle') ?><i class="icon-angle-up"></i></h3>
 				
 					<div id="plantas">
 						<?php  $rows = get_field('informacion_plantas');  ?>
@@ -212,19 +221,22 @@ get_header(); ?>
 				</div>	
 				<?php endif; //#section5 PLANTAS ?>
 				
-				<?php if( get_field('link_a_google') || get_field('ubicacion_propiedad')): ?>
+				<?php 
+				$location = get_field('ubicacion_propiedad');
+				if( get_field('link_a_google') || $location['lat'] && $location['lng']  ): ?>
 				<div id="section-6" class="section">
-					
-					<?php if( get_field('ubicacion_propiedad') ): ?>
+				
+					<h3 class="for-mobile"><?php _e('Ubicación', 'castroytagle') ?><i class="icon-angle-up"></i></h3>
+
 						<?php 				
 						$location = get_field('ubicacion_propiedad');				 
-						if( !empty($location) ):
-						?>
-						<div class="acf-map">
-							<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"></div>
-						</div>
+						if($location['lat'] && $location['lng'] ) :
+							?>
+							<div class="acf-map">
+								<div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"></div>
+							</div>
 						<?php endif; ?>
-					<?php endif; ?>
+
 					
 					<?php if( get_field('link_a_google') ): ?>
 					<a class="back-btn" target="_blank" title="Ver en Google Maps" href="<?php the_field('link_a_google'); ?>"><i class="icon-location"></i><?php _e('Ver Mapa Completo', 'castroytagle') ?></a>
@@ -235,11 +247,16 @@ get_header(); ?>
 				
 				<div id="section-7" class="section">
 				
+					<h3 class="for-mobile"><?php _e('Contacto', 'castroytagle') ?><i class="icon-angle-up"></i></h3>
+				
+					<?php if( get_field('ejecutiva_contacto') ||get_field('telefono_contacto') || get_field('horario_contacto') || get_field('oficina_ventas')  ): ?>
 					<div class="contact-data">
+
 						<h3><?php _e('Información de Ventas', 'castroytagle') ?></h3>
+
 					   <?php if( get_field('ejecutiva_contacto') ): ?>
 			 			<div>
-				 			<h5><?php _e('Ejecutiva:', 'castroytagle') ?></h5> 
+				 			<h5><?php _e('Contacto Ventas:', 'castroytagle') ?></h5> 
 				 			<p><?php the_field('ejecutiva_contacto') ?></p>
 				 		</div>
 				 		<?php endif; ?>
@@ -266,6 +283,15 @@ get_header(); ?>
 				 		<?php endif; ?>
 				 						 		
 			 		</div>
+			 		<?php endif; ?>
+			 		
+			 		<?php include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); ?>
+					<?php if (is_plugin_active('contact-form-7/wp-contact-form-7.php')) { ?>
+					
+						<div id="form-project">
+						<?php echo do_shortcode( '[contact-form-7 id="109" title="Formulario Proyecto"]' ); ?></div>
+					<?php } ?>
+
 				
 				</div><!--#section7/Contacto-->		
 

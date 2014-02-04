@@ -21,7 +21,7 @@
 		
 	if ( is_active_sidebar( 'primary-widget-area' ) ) : ?>
 
-			<ul class="widget-list">
+			<ul class="widget-list resize">
 				<?php dynamic_sidebar( 'primary-widget-area' ); ?>
 			</ul>
 	<?php endif; ?>

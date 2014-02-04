@@ -29,7 +29,7 @@
 	</section><!-- #main -->
 	
 	<footer id="footer" role="contentinfo">
-		<div id="footer-content">
+		<div id="footer-content" class="resize">
 		
 		<?php
 		/* A sidebar in the footer? Yep. You can can customize

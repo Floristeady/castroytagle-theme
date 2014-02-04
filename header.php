@@ -69,7 +69,7 @@
 			  
 					<h2><?php bloginfo( 'description' ); ?></h2>
 				</div>
-				
+				<a class="btn-menu" href="javascript:void(0);"><?php _e('Menú', 'castroytagle') ?></a>
 				<nav id="access" role="navigation" class="clearfix">
 				  	<?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
 				</nav><!-- #access -->

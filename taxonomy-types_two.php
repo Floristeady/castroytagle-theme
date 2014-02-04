@@ -10,7 +10,7 @@
 
 get_header(); ?>
 
-<div id="content" class="projectready">
+<div id="content" class="projectready list">
     
     <?php $post_type = get_post_type_object( get_post_type($post) ); ?>
 	
@@ -18,13 +18,23 @@ get_header(); ?>
 	
 	<?php include('include/submenu-terms.php'); ?>
 	
+	<?php 
+		$query = array_merge( $wp_query->query_vars, array( 
+		'post_type' => 'projectready', 
+		'orderby' => 'menu_order', 
+		'posts_per_page' => 80, 
+		'order' => 'DESC'
+		 ));
+		
+		 query_posts( $query );
+	 ?>
+	
 	<ul id="list-projects">
 	<?php if ( ! have_posts() ) : ?>
 		<li id="post-0" class="post error404 not-found ">
 			<h1 class="entry-title"><?php _e( 'Nothing Found', 'castroytagle' ); ?></h1>
 			<div class="entry-content">
-				<p><?php _e( 'Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post.', 'castroytagle' ); ?></p>
-				<?php get_search_form(); ?>
+				<p><?php _e( 'Estimada visita. <br/> Por el momento no hay proyectos disponibles en esta categoría. <br/> Muchas gracias.', 'castroytagle' ); ?></p>
 			</div>
 		</li>
 	<?php endif; ?>

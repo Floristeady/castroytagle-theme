@@ -10,10 +10,11 @@
 
 
 <?php
+
 $args = array(
   'taxonomy'     => 'types_two',
   'hide_empty'   => 1,
-  'orderby'      => 'count',
+  'orderby'      => 'name',
   'show_count'   => 0,      // 1 for yes, 0 for no
   'pad_counts'   => 0,      // 1 for yes, 0 for no
   'hierarchical' => 0,      // 1 for yes, 0 for no

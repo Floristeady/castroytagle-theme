@@ -118,7 +118,7 @@ function castroytagle_setup() {
 	$defaults = array(
 	'default-image'          => get_template_directory_uri() . '/images/back/back.jpg',
 	'random-default'         => false,
-	'width'                  => 1300,
+	'width'                  => 1200,
 	'height'                 => 800,
 	'flex-height'            => false,
 	'flex-width'             => false,
@@ -130,8 +130,6 @@ function castroytagle_setup() {
 	'admin-preview-callback' => '',
 	);
 	add_theme_support( 'custom-header', $defaults );
-
-
 	}
 endif;
 
@@ -242,7 +240,7 @@ add_filter( 'wp_page_menu_args', 'castroytagle_page_menu_args' );
  * @return int
  */
 function castroytagle_excerpt_length( $length ) {
-	return 40;
+	return 30;
 }
 add_filter( 'excerpt_length', 'castroytagle_excerpt_length' );
 
@@ -613,7 +611,6 @@ $args = array(
 'publicly_queryable' => true,
 'show_ui' => true,
 'query_var' => true,
-'rewrite' => array('slug' => 'ciudades'),
 'capability_type' => 'page',
 'hierarchical' => false,
 'menu_position' => null,
@@ -656,5 +653,57 @@ function create_book_tax_two() {
 /**
 ********************* Custom Taxonomy Project Ready*****************
 */
+
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); 
+if (is_plugin_active('contact-form-7/wp-contact-form-7.php')) {
+//get the name "[posttitle mypagelink] en mensaje [_post_title]"
+	function wpcf7_postlink_shortcode_handler( $tag ) {
+		global $wpcf7_contact_form;
+		global $wpdb;
+		
+		if ( ! is_array( $tag ) )
+			return '';
+			
+			$type = $tag['type'];
+			$name = $tag['name'];
+			
+			$post = get_the_ID();
+			
+			$querystr = "SELECT * FROM $wpdb->posts WHERE ID = $post ";
+			$pageposts = $wpdb->get_row($querystr, ARRAY_A);
+			
+			$html = '<input type="text" name="'. $name .'" value="'.$pageposts['post_title'].'" />';
+			
+			$html = $pageposts['post_title'];
+			return $html;
+	}
+	
+	wpcf7_add_shortcode( 'posttitle', 'wpcf7_postlink_shortcode_handler', true );
+	
+	function wpcf7_postlink_validation_filter( $result, $tag ) {
+		global $wpcf7_contact_form;
+		
+		$type = $tag['type'];
+		$name = $tag['name'];
+		
+		return $result;
+	}
+	
+	add_filter( 'wpcf7_validate_pagelink', 'wpcf7_pagelink_validation_filter', 10, 2 );
+}
+
+/**** Admin menu custom************/
+$editor = get_role('editor');
+// add $cap capability to this role object
+$editor->add_cap('edit_theme_options');
+$editor->remove_cap('manage_links');
+
+function edit_admin_menus() {
+	global $menu;
+
+	remove_menu_page('edit-comments.php'); // Remove the Tools Menu
+	remove_menu_page('edit.php'); // Remove the Tools Menu
+}
+add_action( 'admin_menu', 'edit_admin_menus' );
 
 ?>

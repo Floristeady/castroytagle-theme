@@ -11,7 +11,7 @@ $(function() {
     controlNav: true,
     directionNav: false,
 	keyboardNav: true,
-	slideshowSpeed: 7000,
+	slideshowSpeed: 4000,
 	pauseOnHover: false,	 				
 	animationLoop: true,
 	after: function(){
@@ -20,27 +20,34 @@ $(function() {
 	}
   });
   
-  $('#home-gallery .flex-control-nav').prepend('<li class="title">PROYECTOS</li>');
+  //$('#home-gallery .flex-control-nav').prepend('<li class="title">PROYECTOS</li>');
   
   // Home
   if ($('body').hasClass('home')) {
   	var new_img = $('.flex-active-slide').children('img.this').attr('src');
-	 $.backstretch(new_img, {duration: 3000, fade: 750});
+	 $.backstretch(new_img, {duration: 2000, fade: 750});
 	 
-  } else if ($('body').hasClass('single-projectready') || $('body').hasClass('single-projectsale')  ){
-     $('#container').css('background-color', 'rgba(255, 255, 255, 0.85)');
+  } else if ($('body').hasClass('single-projectready')) {
+  
+   $('#container').css('background-color', 'rgba(255, 255, 255, 0.75)');
 	 var new_img = $('#back-image').children('img').attr('src');
-	 $.backstretch(new_img, {duration: 3000, fade: 750}); 
+	 $.backstretch(new_img, {duration: 2000, fade: 750}); 
+  
+  } else if ($('body').hasClass('single-projectsale') ) {
+     $('#container').css('background-color', 'rgba(255, 255, 255, 0.8)');
+	 var new_img = $('#back-image').children('img').attr('src');
+	 $.backstretch(new_img, {duration: 2000, fade: 750}); 
 
   } else {
      $('#container').css('background-color', 'rgba(255, 255, 255, 0.6)');
 	 var new_img = $('#back-image').children('img').attr('src');
-	 $.backstretch(new_img, {duration: 3000, fade: 750}); 
+	 $.backstretch(new_img, {duration: 2000, fade: 750}); 
   }
   
   $('#project-gallery').flexslider({
      animation: "slide",
      controlNav: "thumbnails",
+     startAt: 0, 
      slideshow: false,
      directionNav: false,
      start: function(slider){
@@ -49,6 +56,17 @@ $(function() {
     });
     
    $('#entorno-gallery').flexslider({
+    animation: "fade",
+    slideshow: true,
+    controlNav: false,
+    directionNav: true,
+	keyboardNav: true,
+	slideshowSpeed: 7000,
+	pauseOnHover: false,	 				
+	animationLoop: true
+  });
+  
+  $('#page-gallery').flexslider({
     animation: "fade",
     slideshow: true,
     controlNav: false,
@@ -76,11 +94,10 @@ $(function() {
 	var htop = $('.project-top').height();	
 	var hbre = $('#breadcrumbs').height();
 	var hfooter = $('#footer').height();
-	//console.log(hfooter);
 	var value = hfooter;
 	$('article.projectsale .inner').css('height', hw-htop-hfooter-hbre-value);
 	$('.project-content').css('height', hw-htop-hfooter-hbre-value);
-	$('.section').css('height', hw-htop-hfooter-hbre-value-50);
+	$('.section').css('min-height', hw-htop-hfooter-hbre-value-50);
   }
 });
 
@@ -106,37 +123,73 @@ $(function() {
 $(function() {
 // This one is important, many browsers don't reset scroll on refreshes
 	// Reset all scrollable panes to (0,0)
-	$('.project-content').scrollTo( 0 );
-	// Reset the screen to (0,0)
-	$.scrollTo( 0 );
-
-	$('a.btn-s1').click(function(){
-		$('.project-content').stop().scrollTo( '#section-1', 800 );
-	});
+	if( !/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ) { 
+		$('.project-content').scrollTo( 0 );
+		// Reset the screen to (0,0)
+		$.scrollTo( 0 );
 	
-	$('a.btn-s2').click(function(){
-		$('.project-content').stop().scrollTo( '#section-2', 800 );
-	});
 	
-	$('a.btn-s3').click(function(){
-		$('.project-content').stop().scrollTo( '#section-3', 800 );
-	});
-	
-	$('a.btn-s4').click(function(){
-		$('.project-content').stop().scrollTo( '#section-4', 800 );
-	});
-	
-	$('a.btn-s5').click(function(){
-		$('.project-content').stop().scrollTo( '#section-5', 800 );
-	});
-	
-	$('a.btn-s6').click(function(){
-		$('.project-content').stop().scrollTo( '#section-6', 800 );
-	});
-	
-	$('a.btn-s7').click(function(){
-		$('.project-content').stop().scrollTo( '#section-7', 800 );
-	});
+		$('a.btn-s1').click(function(){
+			$('.project-content').stop().scrollTo( '#section-1', 800 );
+		});
+		
+		$('a.btn-s2').click(function(){
+			$('.project-content').stop().scrollTo( '#section-2', 800 );
+		});
+		
+		$('a.btn-s3').click(function(){
+			$('.project-content').stop().scrollTo( '#section-3', 800 );
+		});
+		
+		$('a.btn-s4').click(function(){
+			$('.project-content').stop().scrollTo( '#section-4', 800 );
+		});
+		
+		$('a.btn-s5').click(function(){
+			$('.project-content').stop().scrollTo( '#section-5', 800 );
+		});
+		
+		$('a.btn-s6').click(function(){
+			$('.project-content').stop().scrollTo( '#section-6', 800 );
+		});
+		
+		$('a.btn-s7').click(function(){
+			$('.project-content').stop().scrollTo( '#section-7', 800 );
+		});
+	} else {
+		$('a.btn-s2').click(function(){
+			$.mobile.silentScroll($('#section-2').offset().top);
+			return false;
+		});
+		$('a.btn-s3').click(function(){
+			$.mobile.silentScroll($('#section-3').offset().top);
+			return false;
+		});
+		$('a.btn-s4').click(function(){
+			$.mobile.silentScroll($('#section-4').offset().top);
+			return false;
+		});
+		$('a.btn-s5').click(function(){
+			$.mobile.silentScroll($('#section-5').offset().top);
+			return false;
+		});
+		$('a.btn-s6').click(function(){
+			$.mobile.silentScroll($('#section-6').offset().top);
+			return false;
+		});
+		$('a.btn-s7').click(function(){
+			$.mobile.silentScroll($('#section-7').offset().top);
+			return false;
+		});
+		$('a.btn-s1').click(function(){
+			$.mobile.silentScroll($('#section-1').offset().top);
+			return false;
+		});
+		
+		$('.icon-angle-up').click(function(){
+			$.mobile.silentScroll(200);
+		});
+	}
 });
  
 /*menu current page*/
@@ -145,6 +198,7 @@ $(function() {
 	var $menu = $('#submenu.project'),
 	$menuli = $menu.find('li');
 	
+	if( !/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ) { 
 	$menuli.click(function(){
         var $this = $(this);
         $this.siblings('li.current').removeClass('current');
@@ -155,11 +209,186 @@ $(function() {
 
         $this.addClass('current');
 	});
+	} else {
+		$( $menuli ).bind( "tap", tapHandler );
+ 
+	  function tapHandler( event ){
+	    var $this = $(this);
+        $this.siblings('li.current').removeClass('current');
+        // don't proceed if already selected
+        if ( $this.hasClass('current') ) {
+         	return false;
+        } 
+        $this.addClass('current');
+	  }
+	}
+	
+	if( !/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ) { 
+	var opts = {
+    offset: '-1',
+    context: '.project-content'
+	};
+			
+	$('#section-1').waypoint(function(event, direction) {
+	    $('.btn-s1').parent('li').addClass('current');
+	    $('.btn-s1').parent('li').siblings('li.current').removeClass('current');
+	}, opts);
+	
+	//#section-2
+	$('#section-2').waypoint(function(direction) {
+		if (direction === "down") {
+			$('.btn-s2').parent('li').addClass('current');
+			$('.btn-s2').parent('li').siblings('li.current').removeClass('current');
+	      }}, {offset: '10%', context: '.project-content'});
+    
+    $('#section-2').waypoint(function(direction) {
+		if (direction === "up") {
+			$('.btn-s2').parent('li').addClass('current');
+			$('.btn-s2').parent('li').siblings('li.current').removeClass('current');
+	      }}, {offset: '-1', context: '.project-content'});
+	
+	//#section-3
+	$('#section-3').waypoint(function(direction) {
+		if (direction === "down") {
+			$('.btn-s3').parent('li').addClass('current');
+			$('.btn-s3').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '10%', context: '.project-content'});
+	
+	$('#section-3').waypoint(function(direction) {
+		if (direction === "up") {
+			$('.btn-s3').parent('li').addClass('current');
+			$('.btn-s3').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '-1', context: '.project-content'});      
+	 
+	
+	//#section-4
+	$('#section-4').waypoint(function(direction) {
+		if (direction === "down") {
+			$('.btn-s4').parent('li').addClass('current');
+			$('.btn-s4').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '10%', context: '.project-content'});
+	
+	$('#section-4').waypoint(function(direction) {
+		if (direction === "up") {
+			$('.btn-s4').parent('li').addClass('current');
+			$('.btn-s4').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '-1', context: '.project-content'}); 
+	
+	//#section-4
+	$('#section-5').waypoint(function(direction) {
+		if (direction === "down") {
+			$('.btn-s5').parent('li').addClass('current');
+			$('.btn-s5').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '10%', context: '.project-content'});
+	
+	$('#section-5').waypoint(function(direction) {
+		if (direction === "up") {
+			$('.btn-s5').parent('li').addClass('current');
+			$('.btn-s5').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '-1', context: '.project-content'}); 
+	
+	//#section-6
+	$('#section-6').waypoint(function(direction) {
+		if (direction === "down") {
+			$('.btn-s6').parent('li').addClass('current');
+			$('.btn-s6').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '10%', context: '.project-content'});
+	
+	$('#section-6').waypoint(function(direction) {
+		if (direction === "up") {
+			$('.btn-s6').parent('li').addClass('current');
+			$('.btn-s6').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '-1', context: '.project-content'}); 
+	
+	//#section-7
+	$('#section-7').waypoint(function(direction) {
+		if (direction === "down") {
+			$('.btn-s7').parent('li').addClass('current');
+			$('.btn-s7').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '10%', context: '.project-content'});
+	
+	$('#section-7').waypoint(function(direction) {
+		if (direction === "up") {
+			$('.btn-s7').parent('li').addClass('current');
+			$('.btn-s7').parent('li').siblings('li.current').removeClass('current');
+	      }}, { offset: '-1', context: '.project-content'});
+
+	}//end waypoint
+	
+});
+
+/*----------- Menu principal open mobile -----------*/
+$(function() {
+
+   $('header')      
+      .find('a.btn-menu')
+         .bind('click focus', function(){
+            $(this).toggleClass('expanded');
+            $('#access').slideToggle();
+         });   
+	AdjustHomePage();
 });
 
 
+
+//For mobile slider home
+function AdjustHomePage() {
+
+	var WH = jQuery(window).height();
+	var WW = jQuery(window).width();
+	var imgWidth = jQuery('ul.slides li img').width();
+	var imgHeight = jQuery('ul.slides li img').height();
+	var imgRatio = imgWidth / imgHeight;
+	var Left = 0;
+	var Top = 0;
+	
+	var rootWidth = WW;
+	var rootHeight = WH;
+	
+	
+	var bgWidth = parseInt(rootWidth);
+
+	var bgHeight = bgWidth / imgRatio;
+
+	if(bgHeight >= rootHeight) {
+		bgOffset = (bgHeight - rootHeight) /2;
+		Top = "-" + bgOffset + "px";
+	} else {
+		bgHeight = rootHeight;
+		bgWidth = bgHeight * imgRatio;
+		bgOffset = (bgWidth - rootWidth) / 2;
+		Left = "-" + bgOffset + "px";
+	}
+
+	jQuery('#home-gallery.flexslider ul li').css({width: rootWidth, height: rootHeight}).find("img").css({width: bgWidth, height: bgHeight, left: Left, top: Top});
+	
+	jQuery('.single .backstretch').css({width: rootWidth, height: rootHeight}).find("img").css({width: bgWidth, height: bgHeight, left: Left, top: Top});
+	
+}
+
+/* fancybox */
 $(function() {
-	$('a.fancybox').fancybox();
+	$('a.fancybox').fancybox({padding : 4,
+		helpers: {
+		    overlay: {
+		      locked: true
+		    }
+		},
+		afterShow: function() {
+	        if ('ontouchstart' in document.documentElement){
+	            //$('.fancybox-nav').css('display','none');
+	            $('.fancybox-wrap').swipe({
+	                swipe : function(event, direction) {
+	                    if (direction === 'left' || direction === 'up') {
+	                        $.fancybox.prev( direction );
+	                    } else {
+	                        $.fancybox.next( direction );
+	                    }
+	                }
+	            });
+	        }
+	    }
+	});
 });
 	
  
@@ -319,4 +548,41 @@ $(function() {
 	});
  
 })(jQuery);
+
+
+/*! A fix for the iOS orientationchange zoom bug.
+ Script by @scottjehl, rebound by @wilto.
+ MIT License.
+*/
+(function(w){
+	// This fix addresses an iOS bug, so return early if the UA claims it's something else.
+	if( !( /iPhone|iPad|iPod/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) ){ return; }
+    var doc = w.document;
+    if( !doc.querySelector ){ return; }
+    var meta = doc.querySelector( "meta[name=viewport]" ),
+        initialContent = meta && meta.getAttribute( "content" ),
+        disabledZoom = initialContent + ",maximum-scale=1",
+        enabledZoom = initialContent + ",maximum-scale=10",
+        enabled = true,
+		x, y, z, aig;
+    if( !meta ){ return; }
+    function restoreZoom(){
+        meta.setAttribute( "content", enabledZoom );
+        enabled = true; }
+    function disableZoom(){
+        meta.setAttribute( "content", disabledZoom );
+        enabled = false; }
+    function checkTilt( e ){
+		aig = e.accelerationIncludingGravity;
+		x = Math.abs( aig.x );
+		y = Math.abs( aig.y );
+		z = Math.abs( aig.z );
+		// If portrait orientation and in one of the danger zones
+        if( !w.orientation && ( x > 7 || ( ( z > 6 && y < 8 || z < 8 && y > 6 ) && x > 5 ) ) ){
+			if( enabled ){ disableZoom(); } }
+		else if( !enabled ){ restoreZoom(); } }
+	w.addEventListener( "orientationchange", restoreZoom, false );
+	w.addEventListener( "devicemotion", checkTilt, false );
+})( this );
+
 

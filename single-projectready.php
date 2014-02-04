@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-<?php include('include/breadcrumbs.php'); ?>
+<?php include('include/breadcrumbs-typestwo.php'); ?>
 
 <div id="content">
 
@@ -25,8 +25,9 @@ get_header(); ?>
 				
 
 		<div class="entry-content">
-			<h2 class="excerpt"><?php $pbasExtracto = strip_tags(get_the_excerpt()); ?>
-                <?php print $pbasExtracto ?></h2>
+			<?php  if (has_excerpt()) : ?>
+				<h2 class="excerpt"><?php the_excerpt(); ?></h2>
+            <?php endif ?>
 			
 			<?php the_content(); ?>
 		</div>
