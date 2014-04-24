@@ -651,7 +651,7 @@ function create_book_tax_two() {
 }
 
 /**
-********************* Custom Taxonomy Project Ready*****************
+********************* Contact function*****************
 */
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); 

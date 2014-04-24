@@ -131,7 +131,23 @@ get_header(); ?>
 				
 					<h3 class="for-mobile"><?php _e('Emplazamiento', 'castroytagle') ?><i class="icon-angle-up"></i></h3>
 				
-					<?php  $rows = get_field('listado_emplazamiento');  ?>
+					<?php $rows = get_field('galeria_emplazamiento');  ?>
+						
+					<?php if($rows) { ?>
+					<div id="entorno-gallery" class="emplazamiento-gallery flexslider">
+					
+					<?php echo '<ul class="slides">';
+					 
+						foreach($rows as $row) { ?>
+						
+				 		<li><a href="<?php echo $row['imagen_emplazamiento'] ?>" class="fancybox" rel="grouptwo">  <img src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php echo $row['imagen_emplazamiento'] ?>&w=662&h=480"/></a> </li>
+		
+						<?php } echo '</ul>';  ?>
+					</div>	
+					<?php } ?>
+					
+					
+					<?php  $rows = get_field('listado_emplazamiento'); // listado ?>
 						
 					<?php if($rows) { ?>
 					
@@ -144,21 +160,6 @@ get_header(); ?>
 						<?php } echo '</ul>';  
 						
 					} ?>
-
-					<?php $rows = get_field('galeria_emplazamiento');  ?>
-						
-					<?php if($rows) { ?>
-					<div class="carousel-gallery flexslider">
-					
-					<?php echo '<ul class="slides">';
-					 
-						foreach($rows as $row) { ?>
-						
-				 		<li><a href="<?php echo $row['imagen_emplazamiento'] ?>" class="fancybox" rel="grouptwo">  <img src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php echo $row['imagen_emplazamiento'] ?>&w=160&h=120"/></a> </li>
-		
-						<?php } echo '</ul>';  ?>
-					</div>	
-					<?php } ?>
 						
 				</div>
 				<?php endif; //#section4 EMPLAZAMIENTO ?>	
@@ -227,7 +228,13 @@ get_header(); ?>
 				<div id="section-6" class="section">
 				
 					<h3 class="for-mobile"><?php _e('Ubicación', 'castroytagle') ?><i class="icon-angle-up"></i></h3>
-
+					
+						<?php if( get_field('texto_mapa') ): ?>
+						<div class="entry-content">
+							<?php the_field('texto_mapa'); ?>
+						</div>
+						<?php endif; ?>
+					
 						<?php 				
 						$location = get_field('ubicacion_propiedad');				 
 						if($location['lat'] && $location['lng'] ) :
@@ -287,9 +294,12 @@ get_header(); ?>
 			 		
 			 		<?php include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); ?>
 					<?php if (is_plugin_active('contact-form-7/wp-contact-form-7.php')) { ?>
-					
-						<div id="form-project">
-						<?php echo do_shortcode( '[contact-form-7 id="109" title="Formulario Proyecto"]' ); ?></div>
+						
+						<?php if( get_field('codigo_formulario') ): ?>
+				 		<div id="form-project">
+				 			<?php the_field('codigo_formulario') ?>
+				 		</div>
+				 		<?php endif; ?>
 					<?php } ?>
 
 				

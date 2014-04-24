@@ -73,10 +73,12 @@ get_header(); ?>
 				
 				<?php if( get_field('imagen_listado_proyecto') ): ?>
 				<span class="img">
+					<span></span>
 					<img src="<?php bloginfo('template_url') ?>/timthumb.php?src=<?php the_field('imagen_listado_proyecto'); ?>&w=246&h=186" alt="<?php the_title(); ?>" />
 				</span>
 				<?php else :  ?> 				
 				<span class="img">
+				    <span></span>
 					<img src="<?php bloginfo('template_url') ?>/images/elements/default-project.jpg"/>
 				</span>
 				<?php endif; //end img?>

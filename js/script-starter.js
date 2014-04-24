@@ -2,8 +2,14 @@
 	Any site-specific scripts you might have.
 */
 
-/*****Flexislider Home*****/
+
 $(function() {
+  
+  if (!$(window).width() <= 767) {
+  	//AdjustHomePage();
+  }
+  
+  AdjustHomeSlider();
   
   $('#home-gallery').flexslider({
     animation: "fade",
@@ -11,21 +17,22 @@ $(function() {
     controlNav: true,
     directionNav: false,
 	keyboardNav: true,
-	slideshowSpeed: 4000,
+	slideshowSpeed: 7000,
 	pauseOnHover: false,	 				
 	animationLoop: true,
+	animationSpeed: 1500,
 	after: function(){
 	  var new_img = $('.flex-active-slide').children('img.this').attr('src');
 	  $.backstretch('' + new_img + '');
 	}
   });
   
-  //$('#home-gallery .flex-control-nav').prepend('<li class="title">PROYECTOS</li>');
-  
-  // Home
+  /*
+   * Imagen de fondo
+   */
   if ($('body').hasClass('home')) {
   	var new_img = $('.flex-active-slide').children('img.this').attr('src');
-	 $.backstretch(new_img, {duration: 2000, fade: 750});
+	$.backstretch(new_img, {duration: 1200, fade: 600});
 	 
   } else if ($('body').hasClass('single-projectready')) {
   
@@ -44,6 +51,9 @@ $(function() {
 	 $.backstretch(new_img, {duration: 2000, fade: 750}); 
   }
   
+  /*
+  * Galerías
+  */
   $('#project-gallery').flexslider({
      animation: "slide",
      controlNav: "thumbnails",
@@ -56,6 +66,17 @@ $(function() {
     });
     
    $('#entorno-gallery').flexslider({
+    animation: "fade",
+    slideshow: true,
+    controlNav: false,
+    directionNav: true,
+	keyboardNav: true,
+	slideshowSpeed: 7000,
+	pauseOnHover: false,	 				
+	animationLoop: true
+  });
+  
+  $('.emplazamiento-gallery').flexslider({
     animation: "fade",
     slideshow: true,
     controlNav: false,
@@ -87,7 +108,31 @@ $(function() {
    
 });
 
-//Efectos 
+/*
+* Ajustar tamaño ventana
+*/
+$( window ).resize(function() {
+	AdjustHomeSlider()
+});
+
+/*
+* Ajustar HomeGallery Slider
+*/
+function AdjustHomeSlider() {
+  var WW = jQuery(window).width();
+  var WH = jQuery(window).height();
+  var footer = $('#footer').height();
+  var totalHeight = WH - footer;
+  //console.log(totalHeight);
+  
+  $('#home-gallery').css({width: WW,height: totalHeight});
+  $('#home-gallery .slides li').css({height: totalHeight});
+ 
+}
+
+/*
+* Efectos
+*/
 $(function() {
  if( !/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ) { 
 	var hw = $(window).height();
@@ -101,7 +146,9 @@ $(function() {
   }
 });
 
-//Add Icons
+/*
+* Iconos proyecots
+*/
 $(function() {
  	$('#list-projects .model.departamentos').prepend('<i class="icon-commerical-building"></i>');
  	$('#list-projects .model.casas').prepend('<i class="icon-home"></i>');
@@ -120,6 +167,9 @@ $(function() {
 });
 
 
+/*
+* Menu proyectos ipad scroll
+*/
 $(function() {
 // This one is important, many browsers don't reset scroll on refreshes
 	// Reset all scrollable panes to (0,0)
@@ -192,7 +242,9 @@ $(function() {
 	}
 });
  
-/*menu current page*/
+/*
+* Menu "current" class - Proyectos
+*/
 $(function() {
 
 	var $menu = $('#submenu.project'),
@@ -202,7 +254,6 @@ $(function() {
 	$menuli.click(function(){
         var $this = $(this);
         $this.siblings('li.current').removeClass('current');
-        // don't proceed if already selected
         if ( $this.hasClass('current') ) {
          	return false;
         } 
@@ -215,7 +266,6 @@ $(function() {
 	  function tapHandler( event ){
 	    var $this = $(this);
         $this.siblings('li.current').removeClass('current');
-        // don't proceed if already selected
         if ( $this.hasClass('current') ) {
          	return false;
         } 
@@ -317,7 +367,9 @@ $(function() {
 	
 });
 
-/*----------- Menu principal open mobile -----------*/
+/*
+* Menu principal mobile
+*/
 $(function() {
 
    $('header')      
@@ -326,18 +378,18 @@ $(function() {
             $(this).toggleClass('expanded');
             $('#access').slideToggle();
          });   
-	AdjustHomePage();
 });
 
 
 
-//For mobile slider home
+/*
 function AdjustHomePage() {
 
 	var WH = jQuery(window).height();
 	var WW = jQuery(window).width();
 	var imgWidth = jQuery('ul.slides li img').width();
 	var imgHeight = jQuery('ul.slides li img').height();
+	var imgheaderHeight = jQuery('#header').height();
 	var imgRatio = imgWidth / imgHeight;
 	var Left = 0;
 	var Top = 0;
@@ -345,6 +397,7 @@ function AdjustHomePage() {
 	var rootWidth = WW;
 	var rootHeight = WH;
 	
+	var finalHeight = rootHeight - imgheaderHeight;
 	
 	var bgWidth = parseInt(rootWidth);
 
@@ -360,13 +413,17 @@ function AdjustHomePage() {
 		Left = "-" + bgOffset + "px";
 	}
 
-	jQuery('#home-gallery.flexslider ul li').css({width: rootWidth, height: rootHeight}).find("img").css({width: bgWidth, height: bgHeight, left: Left, top: Top});
+	jQuery('#home-gallery.flexslider ul').css({width: rootWidth, height: finalHeight}).find("li").css({width: bgWidth, height: finalHeight, left: Left, top: Top});
 	
 	jQuery('.single .backstretch').css({width: rootWidth, height: rootHeight}).find("img").css({width: bgWidth, height: bgHeight, left: Left, top: Top});
 	
 }
+*/
 
-/* fancybox */
+
+/*
+* Fancybox img proyectos
+*/
 $(function() {
 	$('a.fancybox').fancybox({padding : 4,
 		helpers: {
@@ -393,7 +450,7 @@ $(function() {
 	
  
 /*
-*  render_map
+*  render_map - proyectos
 *
 *  This function will render a Google Map onto the selected jQuery element
 *

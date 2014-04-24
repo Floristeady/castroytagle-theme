@@ -17,10 +17,7 @@ get_header(); ?>
 
 <div id="content">
 
-			<?php
-			/* home*/
-			 get_template_part( 'home', 'index' );	 
-			?>
+			<?php get_template_part( 'home', 'index' );	?>
 			
 </div>
 

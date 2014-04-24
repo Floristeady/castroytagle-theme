@@ -380,7 +380,7 @@ a.btn-menu {
 }
 
 #site-title {
-    padding: 40px 0 0;
+    padding: 30px 0 0;
     display: block;
 }
 
@@ -415,6 +415,7 @@ a.btn-menu {
 nav#access {
 	clear: both;
 	display: block;
+	margin-top: -0.5em;
 	width: 100%;
 	text-align: center;
 }
@@ -559,7 +560,7 @@ nav#access ul.sub-menu, nav#access ul.children {
 
 #info {
 	position: absolute;
-	bottom: 5em;
+	bottom: 4em;
 	padding: 0 30px;
 }
 
@@ -575,29 +576,77 @@ nav#access ul.sub-menu, nav#access ul.children {
 	float: left;
 	height: 100%;
 	width: 100%;
+	position: relative;
 }  
-  
-.homepage ul {
-	list-style: none;
+
+#home-gallery .slides {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#home-gallery .info {
+	position: absolute;
+	right: 0px;
+	bottom: 3em;
+	height: 9.5em;
+	width: 65%;
+}
+
+#home-gallery .logo-inicio {
+	float: right;
+	padding: 1.8em 0.5em 1.8em;
+	background-color: #fff;
+	border-radius: 6px 0px 0px 6px;
+	box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.18);
+	position: relative;
+	z-index: 2;
+	margin-top: -0.1em;
+}
+
+#home-gallery .logo-inicio.Negro {
+	background-color: #000;
+}
+
+#home-gallery .text {
+	float: right;
+	background-image: url(images/elements/backsidebar.png);
+	background-color: rgba(255, 255, 255, 0.6);
+	background-repeat: repeat;
+	padding: 1.6em 1.8em 1.5em 2em;
+	margin-right: -3px;
+	z-index: 1;
+	max-height: 9.5em;
+	height: auto;
+}
+
+#home-gallery .text h1, #home-gallery .text h2, #home-gallery .text h3, #home-gallery .text h4, #home-gallery .text h5, #home-gallery .text h6 {
+	font-size: 2em;
+	color: #111;
+	font-weight: 600;
 	margin: 0;
-	padding: 0;
+	text-align: right;
+}
+
+#home-gallery p {
+	margin: 0;
+	color: #000;
+	font-size: 1.25em;
+	text-align: right;
 }
 
 /* Control Nav */
 .flex-control-nav {
-	width: 100%; 
 	position: absolute; 
-	bottom: 90px; 
-	text-align: right; 
+	bottom: 0.8em; 
 	z-index: 2;
-	right: 20px;
+	right: 1em;
 }
 
 .flex-control-nav li {
 	margin: 0 6px; 
 	display: inline-block; 
 	zoom: 1; 
-	*display: inline;
 }
 
 .flex-control-nav li.title {
@@ -610,7 +659,7 @@ nav#access ul.sub-menu, nav#access ul.children {
 	height: 7px;
     display: block; 
     background: transparent; 
-    border: 6px solid #b4b4b4;
+    border: 6px solid #fff;
     cursor: pointer; 
     text-indent: -9999px; 
     -webkit-border-radius: 10px; 
@@ -633,7 +682,7 @@ nav#access ul.sub-menu, nav#access ul.children {
 .flex-control-paging li a.flex-active { 
 	background: transparent; 
 	cursor: default; 
-	border: 6px solid #fff;
+	border: 6px solid #111;
 }
 
 .flex-control-paging li a.flex-active:hover {
@@ -1047,6 +1096,10 @@ a.download-pdf i {
 	margin: 0px;
 	padding: 0px;
 }
+
+#section-4 .slides a:hover img {
+	opacity: 0.8;
+}
  
 #section-2 .text {
 	width: 70%;
@@ -1313,6 +1366,18 @@ ul.list li:before, #section-3 .text-terminaciones ul li:before {
 	clear: left;
 }
 
+#section-6 .entry-content {
+	margin: 1em 0 1em;
+	width: 80%;
+}
+
+#section-6 .entry-content h1, #section-6 .entry-content  h2 {
+	margin-bottom: 0.2em;
+}
+
+#section-6 .entry-content p {
+	margin:0.5em 0;
+}
 
 /* =Widgets
   ========================================================================== */
@@ -1750,6 +1815,8 @@ form span.wpcf7-not-valid-tip, form span.wpcf7-not-valid-tip-no-ajax  {
 		  #list-projects li {width: 40%;}
 		  #list-projects li img {width: 100% !important;}
 		  #list-projects li .logo-project {height:auto;}
+		  
+		  #home-gallery .info {width: 80%;}
 	
 		  #breadcrumbs {margin-left: 20%;}
 		  
@@ -1786,6 +1853,9 @@ form span.wpcf7-not-valid-tip, form span.wpcf7-not-valid-tip-no-ajax  {
 		  #header {padding-bottom: 2.8em;}
 		  #footer {height: 2.8em;}
 		  #breadcrumbs {margin-left: 20%;}
+		  
+		   #home-gallery .info {width: 80%; bottom: 6em;}
+		   #home-gallery .text {height: 7.5em;}
 		  
 		  h1.page-title, h1.section-title, .project-top {min-width: inherit;}
 		  #submenu li a, #submenu li.current a {float: left;margin:0 0.4em 0em 0; padding: 0.4em; border: 1px solid transparent;}
@@ -1869,8 +1939,14 @@ form span.wpcf7-not-valid-tip, form span.wpcf7-not-valid-tip-no-ajax  {
 	  
 	  #main {padding: 0;}
       #home-gallery {height: auto;overflow: hidden;}
-      .home .backstretch {display: none !important;}
-      .home .flexslider img {display: block !important; position: absolute;}
+      #home-gallery .info {width: 100%; bottom: 5em;}
+      #home-gallery .text p {font-size: 1em;}
+      
+      #home-gallery .logo-inicio {display: none;}
+      #home-gallery .text h1, #home-gallery .text h2, #home-gallery .text h3, #home-gallery .text h4, #home-gallery .text h5, #home-gallery .text h6 {font-size: 1.6em;}
+      
+      .home .backstretch {display: block !important;}
+      .home .flexslider .slides img.this {display: none; position: absolute;}
       .home .flex-control-nav {display: none;}
       .projectready .flexslider .slides img, .projectsale .flexslider .slides img {width: 100%;}
       
@@ -1955,7 +2031,6 @@ form span.wpcf7-not-valid-tip, form span.wpcf7-not-valid-tip-no-ajax  {
 /* ==========================================================================
    Helper classes
    ========================================================================== */
-
 
 
 /* Browser Resets
