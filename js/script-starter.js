@@ -105,6 +105,14 @@ $(function() {
     itemWidth: 145,
     itemMargin: 5
   });
+  
+  
+	$('#list-modules a.title').click(function(e) {
+		  e.preventDefault();
+		  $(this).siblings(".text").slideToggle('slow');
+		  $(this).parents('li').toggleClass('close');
+		  $(this).parents('li').toggleClass('open');
+	});
    
 });
 

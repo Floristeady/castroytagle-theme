@@ -729,14 +729,6 @@ nav#access ul.sub-menu, nav#access ul.children {
 	width: 246px;
 }
 
-#list-projects li:nth-child(3n+3) {	
-	/*margin: 0px;*/
-}
-
-#list-projects li:nth-child(4n+4) {	
-	/*clear: both;*/
-}
-
 #list-projects li.project .box-title {
 	border-bottom: 1px solid #e6e6e6;
 }
@@ -951,6 +943,94 @@ nav#access ul.sub-menu, nav#access ul.children {
 
 #list-documents a:hover {
 	color: #777;
+}
+
+/*
+ * Page Modules
+ */
+ 
+#list-modules {
+	padding: 0;
+	margin: 1em 0 3em;
+	float: left;
+	width: 100%;
+}
+
+#list-modules li {
+	width: 80%;
+	float: left;
+	list-style: none;
+	background: #fff;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.3); 
+	margin: 0 0 2em;
+	border-bottom: 3px solid #7d7d7d;
+	-webkit-transition: all .4s ease;
+	transition: all .4s .2s ease; 
+	-moz-transition: all .4s ease;
+}
+
+#list-modules li:hover {
+	border-bottom: 3px solid #ddc125;
+}
+
+#list-modules li.close a.title {
+	border-bottom: 1px solid #fff;
+}
+
+#list-modules li a.title {
+	text-decoration: none;
+	padding: 2% 2% 1.7%;
+	float: left;
+	width: 96%;
+	border-bottom: 1px solid #a0a0a0;
+	-webkit-transition: all .4s ease;
+	transition: all .4s ease; 
+	-moz-transition: all .4s ease;
+}
+
+#list-modules li h3 {
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #626262;
+	font-size: 1.15em;
+	width: 80%;
+	float: left;
+}
+
+#list-modules li .text {
+	padding: 3%;
+	float: left;
+	display: none;
+}
+
+#list-modules li img {
+	float: left;
+	margin-right: 4%;
+}
+
+#list-modules li p {
+	color: #626262;
+	font-size: 0.95em;
+}
+
+#list-modules li .btn-open {
+	background-image: url(images/elements/open_module.png);
+	background-repeat: no-repeat;
+	width: 45px;
+	height: 45px;
+	display: inline-block;
+	float: right;
+	position: relative;
+	z-index: 10;
+}
+
+#list-modules li.close .btn-open {
+	background-position: left center;
+}
+
+#list-modules li.open .btn-open {
+	background-position: right center;
 }
 
 /*
@@ -2006,6 +2086,11 @@ form span.wpcf7-not-valid-tip, form span.wpcf7-not-valid-tip-no-ajax  {
 		  overflow: hidden;
 		  margin: 0 !important;
       }
+      
+      #list-modules li { width: 100%; }
+      #list-modules li .btn-open {background-image: none;}
+	  #list-modules li .text { display: block;}
+	  #list-modules li.close a.title {border-bottom: 1px solid #a0a0a0;}
 	    
     }
     
