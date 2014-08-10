@@ -1002,6 +1002,7 @@ nav#access ul.sub-menu, nav#access ul.children {
 	padding: 3%;
 	float: left;
 	display: none;
+	width: 94%;
 }
 
 #list-modules li img {
